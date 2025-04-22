@@ -1,0 +1,55 @@
+create database hospital;
+use hospital;
+
+create table doctor(
+doctor_id int primary key,
+doctor_name varchar(100),
+doctor_address varchar(100)
+);
+
+insert into doctor(doctor_id,doctor_name,doctor_address) values
+(1,'zain','multan'),
+(2,'sunny','shujabad'),
+(3,'sarim','lahore');
+select* from doctor;
+
+create table patient(
+patient_id int primary key,
+patient_name varchar(100),
+patient_phone_no  varchar(100),
+patient_address varchar(100),
+doctor_id int,
+foreign key (doctor_id)references doctor(doctor_id)
+
+);
+
+insert into patient(patient_id,patient_name,patient_address) values
+(12,'sunny','multan'),
+(24,'mahek','shujabad'),
+(36,'sajal','lahore');
+select* from doctor;
+
+
+/*alter table doctor
+add patient_id int,
+add foreign key ( patient_id) references patient(patient_id)*/
+
+
+select doctor.doctor_id,doctor.doctor_name ,patient.patient_id
+from patient 
+inner join doctor on doctor.doctor_id=patient. doctor_id;
+
+SELECT doctor.doctor_id, doctor.doctor_name, doctor.doctor_address,
+       patient.patient_id, patient.patient_name, patient.patient_phone_no, patient.patient_address
+FROM patient
+INNER JOIN doctor ON doctor.doctor_id = patient.doctor_id;
+
+
+UPDATE patient
+SET patient_id = 2
+WHERE patient_id = 12;
+
+SELECT * FROM patient WHERE patient_id = 12;
+
+ 
+
