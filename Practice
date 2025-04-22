@@ -1,0 +1,72 @@
+create database student_management_system;
+USE student_management_system;
+
+create table Student(
+student_id int primary key,
+first_name  varchar(100),
+last_name varchar(100),
+date_of_birth varchar(100),
+email varchar(100)
+
+);
+insert into Student(student_id,first_name,last_name,date_of_birth,email)values
+(1,'zain','javed','02-4-2023','raozain1234@gmail.com'),
+(2,'junaid','javed','14-4-2023','raozain124@gmail.com');
+create table courses(
+course_id int primary key,
+course_name  varchar(100),
+course_credit varchar(100)
+
+
+);
+insert into courses(course_id,course_name,course_credit) values
+(12,'programming','3 credit'),
+(42,'OOP','4 credit');
+select* from courses;
+create table enrollments(
+enrollement_id int primary key,
+student_id int ,
+course_id int ,
+foreign key (student_id) references Student(student_id),
+foreign key (course_id) references courses(course_id),
+enrollement_date varchar(100)
+
+
+
+);
+insert into enrollments(enrollement_id,student_id,course_id ,enrollement_date)values 
+(54,1,12,03-10-2008);
+select* from enrollments;
+
+SELECT enrollments.enrollement_id, student.first_name, student.last_name  
+FROM Enrollments 
+inner join  student
+ON enrollments.enrollement_id = student.student_id;  
+
+SELECT enrollments.enrollement_id, student.first_name, student.last_name, courses.course_name
+FROM enrollments
+INNER JOIN student ON enrollments.student_id = student.student_id
+INNER JOIN courses ON enrollments.course_id = courses.course_id;
+
+SELECT courses.course_name, COUNT(enrollments.enrollement_id) AS enrollement_count
+FROM courses
+LEFT JOIN enrollments ON courses.course_id = enrollments.course_id
+GROUP BY courses.course_name;
+
+
+create table Teachers(
+teacher_id int primary key,
+name varchar(100),
+email varchar(100)
+);
+insert into teachers(teacher_id,name,email) values
+(1234,'rana','rao98@gmail.com');
+ALTER TABLE courses
+ADD teacher_id INT,
+ADD  FOREIGN KEY (teacher_id) REFERENCES Teachers(teacher_id);
+select* from courses;
+
+SELECT student.last_name, student.first_name
+FROM courses
+INNER JOIN student ON student.student_id = courses.student_id;
+
